@@ -36,15 +36,24 @@ do
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
-        for COMMAND in `echo "$IMMEDIATECOMMANDS"`
+        # Backing up the delimiter (usually a space) used by arrays to differentiate between different data in the array
+        SAVEIFS=$IFS
+	
+        # Change the delimiter used by arrays from a space to a new line, this allows a list of users (on new lines) to be stored in to an array
+        IFS=$'\n'
+
+        for COMMAND in $IMMEDIATECOMMANDS
         do
-            # Tests to see if any of the recent commands include commands of interest and stores the results in $CLIHITS
+            # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits
 
             # Applies cli-watch log formatting to hits found so far
             sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [$USER] ,g" $WORKINGDIR/$USER.hits 2>/dev/null
 
         done
+
+        # Resets $IFS this changes the delimiter that arrays use from new lines (\n) back to just spaces (which is what it normally is)
+        IFS=$SAVEIFS
 
         # Cleans out working copy
         rm -f $WORKINGDIR/$USER.bash_history_working
