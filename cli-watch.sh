@@ -32,7 +32,7 @@ do
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
-        for COMMAND in $IMMEDIATECOMMANDS
+        for COMMAND in `echo $IMMEDIATECOMMANDS`
         do
             # Tests to see if any of the recent commands include commands of interest and stores the results in $CLIHITS
             echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits
