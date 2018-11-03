@@ -15,7 +15,9 @@ then
 else
 
 # Copies the users bash history to the working directory
+echo "Taking initial copy of user's .bash_history file and then exiting..." # DEBUGGING
 cp /home/ashley/.bash_history $WORKINGDIR/.bash_history_working
+exit 0
 
     if [ `md5sum /home/ashley/.bash_history` == `md5sum $WORKINGDIR/.bash_history_working` ]
     then
