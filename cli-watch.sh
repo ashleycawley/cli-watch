@@ -1,5 +1,55 @@
 #!/bin/bash
 
+# Variables
+WORKINGDIR=/tmp/cli-watch # No trailing slash
+
+# Functions
+
+# Script
+
+if [ -f "$WORKINGDIR/.bash_history_working" ]
+then
+
+    # Continue script code
+
+else
+
+# Copies the users bash history to the working directory
+cp /home/ashley/.bash_history $WORKINGDIR/.bash_history_working
+
+    if [ `md5sum /home/ashley/.bash_history` == `md5sum $WORKINGDIR/.bash_history_working` ]
+    then
+
+        echo "User's .bash_history matches our working copy so no further work is needed, exiting..." # DEBUGGING
+        exit 0
+
+    else
+
+    # Differences found between user's .bash_history and our working copy
+    # Contiune with script to compare changes and alert people
+
+    # Extract only the differences
+    # Scan differences for commands of interest
+        # if no hits then exit
+        # if hits then proceed with format parsing and alerting
+
+    fi
+
+fi
+
+
+
+
+
+
+
+
+
+exit 0
+
+#############################################
+
+
 TMPDIR=/home/cli-watch # No trailing slash
 USERLIST=(`ls /home/ | cat`)
 # Tests to see if temp directory exists and if it does not then it creates it
