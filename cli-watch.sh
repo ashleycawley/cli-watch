@@ -3,6 +3,7 @@
 # Variables
 WORKINGDIR=/tmp/cli-watch # No trailing slash
 IMMEDIATECOMMANDS=`cat immediate-commands.txt`
+EMAILADDRESS=
 RUNTIME=`date +%s`
 
 # Arrays
@@ -56,9 +57,10 @@ do
         if [ -f "$WORKINGDIR/$USER.hits" ]
         then
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
-            echo "Dispatching email for $USER" && echo # DEBUGGING
-            cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME # mail -s "CLI-WATCH Report" $EMAILADDRESS
-            echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
+            cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+            #echo "Dispatching email for $USER" && echo # DEBUGGING
+            #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
+            #echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
             
             echo "Deleting $WORKINGDIR/$USER.hits"
             rm -f $WORKINGDIR/$USER.hits
