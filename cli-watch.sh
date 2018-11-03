@@ -54,7 +54,7 @@ do
         PERMS $WORKINGDIR/$USER.bash_history_working
 
         # Checks to see if there are any hits to report and if there is it dispatches the alert email
-        if [ -f "$WORKINGDIR/$USER.hits" ]
+        if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
         then
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
             cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
