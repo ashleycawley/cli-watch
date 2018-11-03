@@ -52,6 +52,7 @@ do
         if [ -f "$WORKINGDIR/$USER.hits" ]
         then
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
+            echo "Dispatching email for $USER" # DEBUGGING
             cat $WORKINGDIR/$USER.hits > email.eml # mail -s "CLI-WATCH Report" $EMAILADDRESS
         else
             exit 0
@@ -61,7 +62,7 @@ do
     else
 
     # Copies the users bash history to the working directory
-    echo "Taking initial copy of user's .bash_history file" # DEBUGGING
+    echo "Taking initial copy of $USER's .bash_history file" # DEBUGGING
     cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
 
     # echo "Exiting..." # DEBUGGING
