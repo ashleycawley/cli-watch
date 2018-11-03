@@ -57,6 +57,7 @@ do
         if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
         then
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
+            echo && echo "Sending email..." && echo # DEBUGGING
             cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
             #echo "Dispatching email for $USER" && echo # DEBUGGING
             #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
@@ -65,6 +66,7 @@ do
             echo "Deleting $WORKINGDIR/$USER.hits"
             rm -f $WORKINGDIR/$USER.hits
         else
+            echo && echo "No email sent - Exiting..." && echo
             exit 0
         fi
 
