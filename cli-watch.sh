@@ -11,6 +11,10 @@ USERS=(`ls /home`)
 
 # Script
 
+# Setting up the environment
+mkdir -p $WORKINGDIR
+chmod 600 $WORKINGDIR
+
 for $USER in ${USERS[*]}
 do
 
@@ -30,31 +34,20 @@ do
 
         done
 
-    # Cleans out working copy
-    rm -f $WORKINGDIR/.$USER.bash_history_working
+        # Cleans out working copy
+        rm -f $WORKINGDIR/.$USER.bash_history_working
 
-    # Copies the users bash history to the working directory
-    cp /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working
+        # Copies the users bash history to the working directory
+        cp /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working
 
-
-    ### Build logic to see if there is anything to report and if there is mail it off
-
-    # Checks to see if there are any hits to report and if there is it dispatches the alert email
-    if [ -f "$WORKINGDIR/$USER.hits" ]
-    then
-        # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
-        cat $WORKINGDIR/$USER.hits > email.eml # mail -s "CLI-WATCH Report" $EMAILADDRESS
-    else
-        exit 0
-    fi
-
-
-
-
-
-
-
-
+        # Checks to see if there are any hits to report and if there is it dispatches the alert email
+        if [ -f "$WORKINGDIR/$USER.hits" ]
+        then
+            # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
+            cat $WORKINGDIR/$USER.hits > email.eml # mail -s "CLI-WATCH Report" $EMAILADDRESS
+        else
+            exit 0
+        fi
 
 
     else
