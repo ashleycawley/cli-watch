@@ -39,10 +39,14 @@ do
 
     ### Build logic to see if there is anything to report and if there is mail it off
 
-
-
-
-
+    # Checks to see if there are any hits to report and if there is it dispatches the alert email
+    if [ -f "$WORKINGDIR/$USER.hits" ]
+    then
+        # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
+        cat $WORKINGDIR/$USER.hits > email.eml # mail -s "CLI-WATCH Report" $EMAILADDRESS
+    else
+        exit 0
+    fi
 
 
 
