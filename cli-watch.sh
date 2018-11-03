@@ -66,8 +66,9 @@ do
             echo "Deleting $WORKINGDIR/$USER.hits"
             rm -f $WORKINGDIR/$USER.hits
         else
-            echo && echo "No email sent - Exiting..." && echo
-            exit 0
+            echo && echo "No email sent" && echo
+            #rm -f $WORKINGDIR/$USER.hits
+            #exit 0
         fi
 
 
@@ -83,6 +84,8 @@ do
 
         fi
 
+# Cleans up any empty USER.hits files
+rm -f $WORKINGDIR/$USER.hits
 
     #if [ `md5sum /home/ashley/.bash_history` == `md5sum $WORKINGDIR/.bash_history_working` ]
     #then
