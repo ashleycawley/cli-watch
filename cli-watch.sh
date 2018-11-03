@@ -69,7 +69,8 @@ do
     # Copies the users bash history to the working directory
     echo "Taking initial copy of $USER's .bash_history file" # DEBUGGING
     cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
-
+    chmod 600 $WORKINGDIR/$USER.bash_history_working
+    
     # echo "Exiting..." # DEBUGGING
     # exit 0
 
