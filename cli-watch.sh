@@ -54,6 +54,8 @@ do
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
             echo "Dispatching email for $USER" # DEBUGGING
             cat $WORKINGDIR/$USER.hits > email.eml # mail -s "CLI-WATCH Report" $EMAILADDRESS
+            echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml && echo
+            echo "Deleting the pretend email..." && rm -f email.eml
         else
             exit 0
         fi
