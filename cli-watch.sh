@@ -9,12 +9,14 @@ RUNTIME=`date +%s`
 USERS=(`ls /home`)
 
 # Functions
-
+function PERMS{
+    chmod 600 $1
+}
 # Script
 
 # Setting up the environment
 mkdir -p $WORKINGDIR
-chmod 600 $WORKINGDIR
+PERMS $WORKINGDIR
 
 for USER in ${USERS[*]}
 do
@@ -48,6 +50,7 @@ do
 
         # Copies the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
+        PERMS $WORKINGDIR/$USER.bash_history_working
 
         # Checks to see if there are any hits to report and if there is it dispatches the alert email
         if [ -f "$WORKINGDIR/$USER.hits" ]
@@ -69,8 +72,8 @@ do
     # Copies the users bash history to the working directory
     echo "Taking initial copy of $USER's .bash_history file" # DEBUGGING
     cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
-    chmod 600 $WORKINGDIR/$USER.bash_history_working
-    
+    PERMS $WORKINGDIR/$USER.bash_history_working
+
     # echo "Exiting..." # DEBUGGING
     # exit 0
 
