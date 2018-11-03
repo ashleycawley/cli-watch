@@ -9,7 +9,7 @@ RUNTIME=`date +%s`
 USERS=(`ls /home`)
 
 # Functions
-function PERMS{
+function PERMS {
     chmod 600 $1
 }
 # Script
