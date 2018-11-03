@@ -2,22 +2,68 @@
 
 # Variables
 WORKINGDIR=/tmp/cli-watch # No trailing slash
+IMMEDIATECOMMANDS=immediate-commands.txt
+
+# Arrays
+USERS=(`ls /home`)
 
 # Functions
 
 # Script
 
-if [ -f "$WORKINGDIR/.bash_history_working" ]
-then
+for $USER in ${USERS[*]}
+do
 
-    # Continue script code
+    if [ -f "$WORKINGDIR/$USER.bash_history_working" ]
+    then
 
-else
+        # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
+        DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
-# Copies the users bash history to the working directory
-echo "Taking initial copy of user's .bash_history file and then exiting..." # DEBUGGING
-cp /home/ashley/.bash_history $WORKINGDIR/.bash_history_working
-exit 0
+        for COMMAND in $IMMEDIATECOMMANDS
+        do
+            # Tests to see if any of the recent commands include commands of interest and stores the results in $CLIHITS
+            echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits
+
+            # Applies cli-watch log formatting to hits found so far
+            sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [$USER] ,g" $WORKINGDIR/$USER.hits 2>/dev/null
+
+        done
+
+    # Cleans out working copy
+    rm -f $WORKINGDIR/.$USER.bash_history_working
+
+    # Copies the users bash history to the working directory
+    cp /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working
+
+
+    ### Build logic to see if there is anything to report and if there is mail it off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    else
+
+    # Copies the users bash history to the working directory
+    echo "Taking initial copy of user's .bash_history file" # DEBUGGING
+    cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
+
+    echo "Exiting..." # DEBUGGING
+    exit 0
+
+        fi
+
 
     if [ `md5sum /home/ashley/.bash_history` == `md5sum $WORKINGDIR/.bash_history_working` ]
     then
@@ -35,14 +81,14 @@ exit 0
         # if no hits then exit
         # if hits then proceed with format parsing and alerting
 
+
+
+
     fi
 
-fi
 
 
-
-
-
+done
 
 
 
