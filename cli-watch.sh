@@ -56,8 +56,8 @@ do
     echo "Taking initial copy of user's .bash_history file" # DEBUGGING
     cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
 
-    echo "Exiting..." # DEBUGGING
-    exit 0
+    # echo "Exiting..." # DEBUGGING
+    # exit 0
 
         fi
 
