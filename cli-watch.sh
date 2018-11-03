@@ -15,7 +15,7 @@ USERS=(`ls /home`)
 mkdir -p $WORKINGDIR
 chmod 600 $WORKINGDIR
 
-for $USER in ${USERS[*]}
+for USER in ${USERS[*]}
 do
 
     if [ -f "$WORKINGDIR/$USER.bash_history_working" ]
