@@ -18,6 +18,14 @@ chmod 600 $WORKINGDIR
 for USER in ${USERS[*]}
 do
 
+    # If a user does not have a .bash_history file in their home folder then this creates an empty one, this is required for first-run logic to work
+    if [ ! -f "/home/$USER/.bash_history" ]
+    then
+        touch /home/$USER/.bash_history
+        chown $USER:$USER /home/$USER/.bash_history
+    fi
+
+    # Tests to see if we have a working copy of the user's bash history
     if [ -f "$WORKINGDIR/$USER.bash_history_working" ]
     then
 
@@ -70,17 +78,7 @@ do
 
     #else
 
-    # Differences found between user's .bash_history and our working copy
-    # Contiune with script to compare changes and alert people
-
-    # Extract only the differences
-    # Scan differences for commands of interest
-        # if no hits then exit
-        # if hits then proceed with format parsing and alerting
-
-
-
-
+ 
     #fi
 
 
