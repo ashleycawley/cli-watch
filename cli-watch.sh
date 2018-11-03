@@ -22,7 +22,7 @@ do
     then
 
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
-        DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
+        DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
         for COMMAND in $IMMEDIATECOMMANDS
         do
@@ -35,10 +35,10 @@ do
         done
 
         # Cleans out working copy
-        rm -f $WORKINGDIR/.$USER.bash_history_working
+        rm -f $WORKINGDIR/$USER.bash_history_working
 
         # Copies the users bash history to the working directory
-        cp /home/$USER/.bash_history $WORKINGDIR/.$USER.bash_history_working
+        cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
 
         # Checks to see if there are any hits to report and if there is it dispatches the alert email
         if [ -f "$WORKINGDIR/$USER.hits" ]
