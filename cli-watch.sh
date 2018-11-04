@@ -62,10 +62,7 @@ do
                 
                 echo "Deleting $WORKINGDIR/$USER.hits"
                 rm -f $WORKINGDIR/$USER.hits
-            else
-                echo && echo "No email sent" && echo
-                #rm -f $WORKINGDIR/$USER.hits
-                #exit 0
+
             fi
 
         done
