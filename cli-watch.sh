@@ -39,7 +39,7 @@ do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits
 
-            # Only if the command about found hits does it re-write the log format
+            # Only if the command above found hits does it re-write the log format
             if [ `echo $?` == "0" ]
             then
                 # Applies cli-watch log formatting to hits found so far
@@ -49,12 +49,8 @@ do
             # Checks to see if there are any hits to report and if there is it dispatches the alert email
             if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
             then
-                # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
-                echo && echo "This is the email alert that would be dispatched:" && echo # DEBUGGING
-                echo && echo "###############################" && echo # DEBUGGING
-                cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
-                cat $WORKINGDIR/$USER.hits >> email.log
-                echo && echo "###############################" && echo # DEBUGGING
+                # Email / Alerting routine, this can be easily switched between logging to a file or dispatch a report via email
+                cat $WORKINGDIR/$USER.hits >> email.log # | mail -s "CLI-WATCH Report" $EMAILADDRESS
                 
                 # Cleaning temporary report of hits
                 rm -f $WORKINGDIR/$USER.hits
