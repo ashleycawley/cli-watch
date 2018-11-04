@@ -4,7 +4,6 @@
 WORKINGDIR=/tmp/cli-watch # No trailing slash
 IMMEDIATECOMMANDS=`cat immediate-commands.txt`
 EMAILADDRESS=""
-RUNTIME=`date +%s`
 
 # Arrays
 USERS=(`ls /home`)
