@@ -28,11 +28,10 @@ do
         touch /home/$USER/.bash_history
         chown $USER:$USER /home/$USER/.bash_history
     fi
-
+    
     # Tests to see if we have a working copy of the user's bash history
     if [ -f "$WORKINGDIR/$USER.bash_history_working" ]
     then
-
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
@@ -55,6 +54,7 @@ do
                 echo && echo "This is the email alert that would be dispatched:" && echo # DEBUGGING
                 echo && echo "###############################" && echo # DEBUGGING
                 cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
+                cat $WORKINGDIR/$USER.hits >> email.log
                 echo && echo "###############################" && echo # DEBUGGING
                 
                 # Cleaning temporary report of hits
