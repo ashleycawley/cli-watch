@@ -48,6 +48,26 @@ do
                 sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [$USER] ,g" $WORKINGDIR/$USER.hits 2>/dev/null
             fi
 
+            # Checks to see if there are any hits to report and if there is it dispatches the alert email
+            if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
+            then
+                # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
+                echo && echo "Sending email..." && echo # DEBUGGING
+                echo && echo "## The email I would have sent would have been: ##" && echo # DEBUGGING
+                cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
+                echo && echo "###########################################################" && echo # DEBUGGING
+                #echo "Dispatching email for $USER" && echo # DEBUGGING
+                #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
+                #echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
+                
+                echo "Deleting $WORKINGDIR/$USER.hits"
+                rm -f $WORKINGDIR/$USER.hits
+            else
+                echo && echo "No email sent" && echo
+                #rm -f $WORKINGDIR/$USER.hits
+                #exit 0
+            fi
+
         done
 
         # Cleans out working copy
@@ -56,26 +76,6 @@ do
         # Copies the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
         PERMS $WORKINGDIR/$USER.bash_history_working
-
-        # Checks to see if there are any hits to report and if there is it dispatches the alert email
-        if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
-        then
-            # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
-            echo && echo "Sending email..." && echo # DEBUGGING
-            echo && echo "## The email I would have sent would have been: ##" && echo # DEBUGGING
-            cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
-            echo && echo "###########################################################" && echo # DEBUGGING
-            #echo "Dispatching email for $USER" && echo # DEBUGGING
-            #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
-            #echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
-            
-            echo "Deleting $WORKINGDIR/$USER.hits"
-            rm -f $WORKINGDIR/$USER.hits
-        else
-            echo && echo "No email sent" && echo
-            #rm -f $WORKINGDIR/$USER.hits
-            #exit 0
-        fi
 
 
     else
