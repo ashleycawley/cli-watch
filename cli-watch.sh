@@ -41,8 +41,12 @@ do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits
 
-            # Applies cli-watch log formatting to hits found so far
-            sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [$USER] ,g" $WORKINGDIR/$USER.hits 2>/dev/null
+            # Only if the command about found hits does it re-write the log format
+            if [ `echo $?` == "0" ]
+            then
+                # Applies cli-watch log formatting to hits found so far
+                sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [$USER] ,g" $WORKINGDIR/$USER.hits 2>/dev/null
+            fi
 
         done
 
@@ -58,7 +62,9 @@ do
         then
             # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
             echo && echo "Sending email..." && echo # DEBUGGING
-            cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+            echo && echo "## The email I would have sent would have been: ##" && echo # DEBUGGING
+            cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
+            echo && echo "###########################################################" && echo # DEBUGGING
             #echo "Dispatching email for $USER" && echo # DEBUGGING
             #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
             #echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
