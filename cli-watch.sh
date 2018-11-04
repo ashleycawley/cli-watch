@@ -52,15 +52,12 @@ do
             if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
             then
                 # EMAIL ROUTINE WOULD GO HERE - This is just mimicking a dispatched email
-                echo && echo "Sending email..." && echo # DEBUGGING
-                echo && echo "## The email I would have sent would have been: ##" && echo # DEBUGGING
+                echo && echo "This is the email alert that would be dispatched:" && echo # DEBUGGING
+                echo && echo "###############################" && echo # DEBUGGING
                 cat $WORKINGDIR/$USER.hits # | mail -s "CLI-WATCH Report" $EMAILADDRESS
-                echo && echo "###########################################################" && echo # DEBUGGING
-                #echo "Dispatching email for $USER" && echo # DEBUGGING
-                #cat $WORKINGDIR/$USER.hits > email.eml.$RUNTIME
-                #echo && echo "Displaying the contents of the pretend email..." && echo && cat email.eml.$RUNTIME && echo
+                echo && echo "###############################" && echo # DEBUGGING
                 
-                echo "Deleting $WORKINGDIR/$USER.hits"
+                # Cleaning temporary report of hits
                 rm -f $WORKINGDIR/$USER.hits
 
             fi
