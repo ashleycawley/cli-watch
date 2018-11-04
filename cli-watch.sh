@@ -66,38 +66,17 @@ do
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
         PERMS $WORKINGDIR/$USER.bash_history_working
 
-
     else
 
-    # Copies the users bash history to the working directory
-    echo "Taking initial copy of $USER's .bash_history file" # DEBUGGING
-    cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
-    PERMS $WORKINGDIR/$USER.bash_history_working
+        # Copy the users bash history to the working directory
+        cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
+        PERMS $WORKINGDIR/$USER.bash_history_working
 
-    # echo "Exiting..." # DEBUGGING
-    # exit 0
-
-        fi
-
-# Cleans up any empty USER.hits files
-rm -f $WORKINGDIR/$USER.hits
-
-    #if [ `md5sum /home/ashley/.bash_history` == `md5sum $WORKINGDIR/.bash_history_working` ]
-    #then
-
-        #echo "User's .bash_history matches our working copy so no further work is needed, exiting..." # DEBUGGING
-        #exit 0
-
-    #else
-
- 
-    #fi
-
-
+    fi
+    
+    # Cleans up any empty USER.hits files
+    rm -f $WORKINGDIR/$USER.hits
 
 done
-
-
-
 
 exit 0
