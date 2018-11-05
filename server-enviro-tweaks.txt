@@ -1,0 +1,31 @@
+# These are some suggested edits that I intend to make to the server
+# environment on which I intend to use cli-watch on.
+
+vim ~/.bashrc
+
+HISTFILESIZE=100000
+
+shopt -s histappend
+
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+source ~/.bashrc
+
+##### Explinations below #####
+
+
+## HISTFILESIZE=100000
+Increases number of commands stored in history to 100,000
+
+
+## shopt -s histappend
+By default, bash writes its history at the end of each session, overwriting the existing file with an updated version. This means that if you are logged in with multiple bash sessions, only the last one to exit will have its history saved.
+
+We can work around this by setting the histappend setting, which will append instead of overwrite the history. This may be set already, but if it is not, you can enable this by adding this line:
+shopt -s histappend
+
+## export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+This adds newly executed commands to the bash history immediately, normally bash history is saved to file when the shell session is closed but his writes it straight away.
+
+## source ~/.bashrc
+Reloads the new settings in to your current shell session so you don't have to close it and reconnect.
