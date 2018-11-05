@@ -50,8 +50,8 @@ do
             if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
             then
                 # Email / Alerting routine, this can be easily switched between logging to a file or dispatch a report via email
-                cat $WORKINGDIR/$USER.hits >> email.log # | mail -s "CLI-WATCH Report" $EMAILADDRESS
-                
+                cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+
                 # Cleaning temporary report of hits
                 rm -f $WORKINGDIR/$USER.hits
 
