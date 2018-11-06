@@ -1,0 +1,10 @@
+# This config file is used by cli-watch.sh - https://github.com/ashleycawley/cli-watch
+
+# Temporary working directory for cli-watch to save files and work, /tmp/example - no trailing slash
+WORKINGDIR=/tmp/cli-watch # No trailing slash
+
+# Full path to the file which commands of interest are referenced from
+IMMEDIATECOMMANDS=`cat /root/cli-watch/immediate-commands.txt`
+
+# Email address to be notified about executed commands
+EMAILADDRESS="acawley@cloudabove.com"
