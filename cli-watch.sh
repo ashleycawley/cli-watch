@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Variables
-WORKINGDIR=/tmp/cli-watch # No trailing slash
-IMMEDIATECOMMANDS=`cat immediate-commands.txt`
-EMAILADDRESS=""
+# Pulls in variables / settings from an external config file
+source `dirname $0`/config
 
 # Arrays
 USERS=(`ls /home`)
