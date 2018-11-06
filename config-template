@@ -7,4 +7,4 @@ WORKINGDIR=/tmp/cli-watch # No trailing slash
 IMMEDIATECOMMANDS=`cat /root/cli-watch/immediate-commands.txt`
 
 # Email address to be notified about executed commands
-EMAILADDRESS="acawley@cloudabove.com"
+EMAILADDRESS="your@email.com"
