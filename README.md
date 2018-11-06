@@ -8,7 +8,7 @@ Notes
 ## Scheduling
 cli-watch is designed to be run once a minute via the crontab. A full path to the script should be specified as follows:
 
-* * * * * bash /root/cli-watch/cli-watch.sh
+```* * * * * bash /root/cli-watch/cli-watch.sh```
 
 ## Dev Notes
 * Add filtering of swb and ansible users
