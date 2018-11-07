@@ -30,7 +30,7 @@ do
     if [ -f "$WORKINGDIR/$USER.bash_history_working" ]
     then
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
-        DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
+        DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v -E "^/home/(swb|ansible)" | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
         for COMMAND in `echo "$IMMEDIATECOMMANDS"`
         do
