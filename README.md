@@ -11,8 +11,8 @@ cli-watch is designed to be run once a minute via the crontab. A full path to th
 ```* * * * * bash /root/cli-watch/cli-watch.sh```
 
 ## Dev Notes
-* Add filtering of swb and ansible users
 * Add checking of root user's .bash_history
 
 ## Completed Improvements
+* Add filtering of swb and ansible users
 * Externalise some variables in to config file
