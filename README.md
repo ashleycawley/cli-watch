@@ -1,9 +1,15 @@
 # cli-watch
-New re-write of command-monitor
+*New re-write of command-monitor*
+A utility that monitors user's .bash_history files for commands of interest that you specify. If a particular command is used then a email notifcation is dispatched.
+
+
 
 # Instructions
 
-Notes
+
+In order for this system to work in good speed it is suggested that a few adjustments are made to the user's .bashrc file or a global equivalent. The suggested changes below only improve the speed, effeciency and reliability of which the user's bash history is saved, so they are useful in themselves whether you choose to use the cli-watch utility or not.
+
+
 
 ## Scheduling
 cli-watch is designed to be run once a minute via the crontab. A full path to the script should be specified as follows:
