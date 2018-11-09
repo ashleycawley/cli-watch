@@ -64,14 +64,28 @@ do
 
             fi
 
+	    if [ -f "$WORKINGDIR/root.hits" ] && [ -s "$WORKINGDIR/root.hits" ]
+            then
+                # Email / Alerting routine, this can be easily switched between logging to a file or dispatch a report via email
+                cat $WORKINGDIR/root.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+
+                # Cleaning temporary report of hits
+                rm -f $WORKINGDIR/root.hits
+
+            fi
+
+
         done
 
         # Cleans out working copy
         rm -f $WORKINGDIR/$USER.bash_history_working
+	rm -f $WORKINGDIR/root.hits
 
         # Copies the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
+	cp /home/root/.bash_history $WORKINGDIR/root.bash_history_working
         PERMS $WORKINGDIR/$USER.bash_history_working
+	PERMS $WORKINGDIR/root.bash_history_working
 
     else
 
@@ -85,7 +99,7 @@ do
     
     # Cleans up any empty USER.hits files
     rm -f $WORKINGDIR/$USER.hits
-
+    rm -f $WORKINGDIR/root.hits
 done
 
 exit 0
