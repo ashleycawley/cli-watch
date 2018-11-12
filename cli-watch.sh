@@ -90,17 +90,17 @@ do
 
         # Copies the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
-	    cp /root/.bash_history $WORKINGDIR/root.bash_history_working
+        cp /root/.bash_history $WORKINGDIR/root.bash_history_working
         PERMS $WORKINGDIR/$USER.bash_history_working
-	    PERMS $WORKINGDIR/root.bash_history_working
+        PERMS $WORKINGDIR/root.bash_history_working
 
     else
 
         # Copy the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
         cp /root/.bash_history $WORKINGDIR/root.bash_history_working
-	    PERMS $WORKINGDIR/$USER.bash_history_working
-	    PERMS $WORKINGDIR/root.bash_history_working
+        PERMS $WORKINGDIR/$USER.bash_history_working
+        PERMS $WORKINGDIR/root.bash_history_working
 
     fi
     
