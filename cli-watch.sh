@@ -4,7 +4,7 @@
 source `dirname $0`/config
 
 # Arrays
-USERS=(`ls /home`)
+USERS=(`awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd`)
 
 # Functions
 function PERMS {
