@@ -12,6 +12,14 @@ function PERMS {
 }
 # Script
 
+# Applies bash history customisations (increases history number, parallel writing from multiple shells and instant updating)
+if [ ! -f "/etc/profile.d/cli-watch-env.sh" ]
+then
+        echo 'HISTFILESIZE=100000
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"' > /etc/profile.d/cli-watch-env.sh
+fi
+
 # Setting up the environment
 mkdir -p $WORKINGDIR
 PERMS $WORKINGDIR
