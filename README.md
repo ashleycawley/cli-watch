@@ -1,5 +1,6 @@
 # cli-watch
 *New re-write of command-monitor*
+
 A utility that monitors user's .bash_history files for commands of interest that you specify. If a particular command is used then a email notifcation is dispatched.
 
 
