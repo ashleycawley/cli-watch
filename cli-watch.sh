@@ -16,8 +16,8 @@ function PERMS {
 if [ ! -f "/etc/profile.d/cli-watch-env.sh" ]
 then
         echo 'HISTFILESIZE=100000
-shopt -s histappend
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"' > /etc/profile.d/cli-watch-env.sh
+        shopt -s histappend
+        export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"' > /etc/profile.d/cli-watch-env.sh
 fi
 
 # Setting up the environment
@@ -39,13 +39,13 @@ do
     then
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v -E "^/home/(swb|ansible)" | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
-	ROOTDIFFERENCES=`diff -u0 /root/.bash_history $WORKINGDIR/root.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
+	    ROOTDIFFERENCES=`diff -u0 /root/.bash_history $WORKINGDIR/root.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
         for COMMAND in `echo "$IMMEDIATECOMMANDS"`
         do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
-	    echo "$ROOTDIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/root.hits && ROOTDIFFHIT="1"
+	        echo "$ROOTDIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/root.hits && ROOTDIFFHIT="1"
 
             # Only if the command above found hits does it re-write the log format
             if [ "$DIFFHIT" == "1" ]
@@ -82,26 +82,25 @@ do
 
             fi
 
-
         done
 
         # Cleans out working copy
         rm -f $WORKINGDIR/$USER.bash_history_working
-	rm -f $WORKINGDIR/root.hits
+	    rm -f $WORKINGDIR/root.hits
 
         # Copies the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
-	cp /root/.bash_history $WORKINGDIR/root.bash_history_working
+	    cp /root/.bash_history $WORKINGDIR/root.bash_history_working
         PERMS $WORKINGDIR/$USER.bash_history_working
-	PERMS $WORKINGDIR/root.bash_history_working
+	    PERMS $WORKINGDIR/root.bash_history_working
 
     else
 
         # Copy the users bash history to the working directory
         cp /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working
         cp /root/.bash_history $WORKINGDIR/root.bash_history_working
-	PERMS $WORKINGDIR/$USER.bash_history_working
-	PERMS $WORKINGDIR/root.bash_history_working
+	    PERMS $WORKINGDIR/$USER.bash_history_working
+	    PERMS $WORKINGDIR/root.bash_history_working
 
     fi
     
