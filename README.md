@@ -28,8 +28,8 @@ cli-watch is designed to be run once a minute via the crontab. A full path to th
 
 ## Dev Notes
 * Find a better way of finding a list of users (other than ls /home)
-* Add checking of root user's .bash_history
 
 ## Completed Improvements
+* Add checking of root user's .bash_history
 * Add filtering of swb and ansible users
 * Externalise some variables in to config file
