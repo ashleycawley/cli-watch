@@ -11,11 +11,11 @@ In order for this system to work in good speed it is suggested that a few adjust
 
 vim ~/.bashrc
 
-```HISTFILESIZE=100000```
-
-```shopt -s histappend```
-
-```export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"```
+```
+HISTFILESIZE=100000
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+```
 
 source ~/.bashrc
 
@@ -26,7 +26,11 @@ cli-watch is designed to be run once a minute via the crontab. A full path to th
 
 ```* * * * * bash /root/cli-watch/cli-watch.sh```
 
-## Dev Notes
+## Suggested Command Inclusions (anti-tampering measures)
+```
+history -c
+ping test.com
+```
 
 ## Completed Improvements
 * Find a better way of finding a list of users (other than ls /home)
