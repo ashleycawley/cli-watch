@@ -33,6 +33,10 @@ history -c
 
 ```
 
+## Dev Notes
+* Create a sanatise function to filter out passwords from strings like:
+-p'PaSsWoRd'
+
 ## Completed Improvements
 * Find a better way of finding a list of users (other than ls /home)
 * Add checking of root user's .bash_history
