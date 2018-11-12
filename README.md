@@ -30,7 +30,7 @@ cli-watch is designed to be run once a minute via the crontab. A full path to th
 ## Suggested Command Inclusions (anti-tampering measures)
 ```
 history -c
-ping test.com
+
 ```
 
 ## Completed Improvements
