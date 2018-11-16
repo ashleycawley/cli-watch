@@ -1,36 +1,43 @@
 # cli-watch
 
-A utility that proactively monitors user's .bash_history for commands of interest that you specify. If a particular command is used then a email notifcation is dispatched.
+A utility that proactively monitors the bash history of all users on the system, it watches for commands of interest (commands specified by you). If one of those commands are used then an email notifcation is dispatched.
 
-The script is designed to be triggered by a scheduled task (CRON) once a minute.
+The script is designed to be used by the root user and triggered by a scheduled task (CRON) once a minute.
 
 
 # Instructions
 
+Clone this repository:
+```git clone https://github.com/ashleycawley/cli-watch.git /root/cli-watch/```
 
+Move into the folder:
+```cd /root/cli-watch/```
 
-In order for this system to work in good speed it is suggested that a few adjustments are made to the user's .bashrc file or a global equivalent. The suggested changes below only improve the speed, effeciency and reliability of which the user's bash history is saved, so they are useful in themselves whether you choose to use the cli-watch utility or not.
+Copy the Template config into position:
+```cp config-template config```
 
-vim ~/.bashrc
+Edit the 'config' file appropriate by following the instructions/comments in the file:
+```vi config```
+
+Schedule the script to run once a minute by running:
+```crontab -e```
+
+And enter in the following line at the end of the file and save:
+```* * * * * bash /root/cli-watch/cli-watch.sh```
+
+Bash history is not configured optimially out of the box, it can fail to save commands if connections are dropped or users use multiple windows, this script changes a few global settings to do with bash history, it does this by saving a file at:
+
+```/etc/profile.d/cli-watch-env.sh```
+
+It applies the following adjustments:
 
 ```
 HISTFILESIZE=100000
 shopt -s histappend
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 ```
+In short those do the following things: it increases the number of commands which are remembered by bash's history and it writes commands to the history immediately to prevent he history from being lost (which it is quite often on default setups).
 
-source ~/.bashrc
-
-
-
-## Scheduling
-cli-watch is designed to be run once a minute via the crontab. A full path to the script should be specified as follows:
-
-```* * * * * bash /root/cli-watch/cli-watch.sh```
-
-## Suggested Command Inclusions (anti-tampering measures)
-```
-history -c
 
 ```
 
