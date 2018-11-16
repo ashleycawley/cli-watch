@@ -39,6 +39,7 @@ history -c
 ## Completed Improvements
 * Create a sanatise function to filter out passwords from strings like:
 -p'PaSsWoRd'
+* Detects if global adjustments have been made to improve bash history effeciency if not it makes them at /etc/profile.d/cli-watch-env.sh
 * Find a better way of finding a list of users (other than ls /home)
 * Add checking of root user's .bash_history
 * Add filtering of swb and ansible users
