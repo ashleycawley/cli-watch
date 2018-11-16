@@ -34,6 +34,7 @@ history -c
 ```
 
 ## Dev Notes
+* Sanitise the following pattern: -p 'my_pass_here'
 * Look for additional password use patterns in real life .bash_history files to build additional sanitisation rules
 
 ## Completed Improvements
