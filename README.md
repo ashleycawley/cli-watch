@@ -41,7 +41,6 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 In short those do the following things: it increases the number of commands which are remembered by bash's history and it writes commands to the history immediately to prevent he history from being lost (which it is quite often on default setups).
 
 
-```
 
 ## Dev Notes
 * Sanitise the following pattern: -p 'my_pass_here'
