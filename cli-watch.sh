@@ -4,12 +4,19 @@
 source `dirname $0`/config
 
 # Arrays
+# Gets a list of real users from /etc/passwd file by identifying those with a UID over 1000
 USERS=(`awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd`)
 
 # Functions
 function PERMS {
     chmod 600 $1
 }
+
+function SANITISE {
+	# Filters MySQL passwords like: -p'84h32u83'
+	sed -n 's/^.*-p'\''\([^'\'']*\)'\''.*$/\1/p'
+}
+
 # Script
 
 # Applies bash history customisations (increases history number, parallel writing from multiple shells and instant updating)
