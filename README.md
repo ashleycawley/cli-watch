@@ -34,10 +34,11 @@ history -c
 ```
 
 ## Dev Notes
-* Create a sanatise function to filter out passwords from strings like:
--p'PaSsWoRd'
+* Look for additional password use patterns in real life .bash_history files to build additional sanitisation rules
 
 ## Completed Improvements
+* Create a sanatise function to filter out passwords from strings like:
+-p'PaSsWoRd'
 * Find a better way of finding a list of users (other than ls /home)
 * Add checking of root user's .bash_history
 * Add filtering of swb and ansible users
