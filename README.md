@@ -1,11 +1,13 @@
 # cli-watch
 
-A utility that proactively monitors the bash history of all users on the system, it watches for commands of interest (commands specified by you). If one of those commands are used then an email notifcation is dispatched with a log of what command was executed, by who and when. A sample report email from cli-watch may look like this:
-
-```16-11-2018 13:46 sensative-server.com cli-watch [gerry] mysqldump --all-databases --quick > db_export.sql```
+A utility that proactively monitors the bash history of all users on the system, it watches for commands of interest (commands specified by you). If one of those commands are used then an email notifcation is dispatched with a log of what command was executed, by who and when.
 
 Enter commands that you would like to cli-watch to monitor within the following file:
 ```immediate-commands.txt```
+
+If you entered the command ```mysqldump``` into that file and cli-watch detected someone using it then the email report you recieve would contain the full command, as an example the email report may look something like this:
+
+```16-11-2018 13:46 sensative-server.com cli-watch [gerry] mysqldump --all-databases --quick > db_export.sql```
 
 The script is designed to be used by the root user and triggered by a scheduled task (CRON) once a minute.
 
