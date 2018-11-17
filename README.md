@@ -4,6 +4,9 @@ A utility that proactively monitors the bash history of all users on the system,
 
 ```16-11-2018 13:46 sensative-server.com cli-watch [gerry] mysqldump --all-databases --quick > db_export.sql```
 
+Enter commands that you would like to cli-watch to monitor within the following file:
+```immediate-commands.txt```
+
 The script is designed to be used by the root user and triggered by a scheduled task (CRON) once a minute.
 
 
