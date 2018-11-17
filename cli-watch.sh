@@ -13,8 +13,8 @@ function PERMS {
 }
 
 function SANITISE {
-	# Filters MySQL passwords like: -p'84h32u83'
-	sed -n 's/^.*-p'\''\([^'\'']*\)'\''.*$/\1/p'
+        # Searches for and sanitises in the following order: -p'Pass123' [AND] -p 'Pass123' [AND] -pPass123 [AND] --passwordPass123
+        sed "s/-p'[^']*'/\-p\'XXXXXXXXXXXX\'/g" | sed "s/-p '[^']*'/\-p \'XXXXXXXXXXX\'/g" | sed 's/\-p.*[[:space:]]/\-pXXXXXXXXXXXX /g' | sed 's/\--password.*[[:space:]]/\--passwordXXXXXXXXXXXX /g'
 }
 
 # Script
@@ -51,8 +51,8 @@ do
         for COMMAND in `echo "$IMMEDIATECOMMANDS"`
         do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
-            echo "$DIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
-            echo "$ROOTDIFFERENCES" | grep -i "$COMMAND" >> $WORKINGDIR/root.hits && ROOTDIFFHIT="1"
+            echo "$DIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
+            echo "$ROOTDIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/root.hits && ROOTDIFFHIT="1"
 
             # Only if the command above found hits does it re-write the log format
             if [ "$DIFFHIT" == "1" ]
@@ -66,7 +66,7 @@ do
             then
                 # Applies cli-watch log formatting to hits found so far
                 sed -i -e "s,^,`date +'%d-%m-%Y %H:%M'` `hostname` cli-watch [root] ,g" $WORKINGDIR/root.hits 2>/dev/null
-            fi
+           fi
 
             # Checks to see if there are any hits to report and if there is it dispatches the alert email
             if [ -f "$WORKINGDIR/$USER.hits" ] && [ -s "$WORKINGDIR/$USER.hits" ]
