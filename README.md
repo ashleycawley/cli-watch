@@ -48,6 +48,9 @@ In short those do the following things: it increases the number of commands whic
 
 
 ## Dev Notes
+* Mute errors from grep by redirecting standard errors to dev null to avoid emails being dispatched like:
+Usage: grep [OPTION]... PATTERN [FILE]...
+Try 'grep --help' for more information.
 * Add check for immediate-commands.txt if it doesn't exist create empty file
 * Check to see if mailx package is installed and if not then offer to install?
 * Sanitise the following pattern: -p 'my_pass_here'
