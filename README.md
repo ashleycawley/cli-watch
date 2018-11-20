@@ -48,6 +48,8 @@ In short those do the following things: it increases the number of commands whic
 
 
 ## Dev Notes
+* Add check for immediate-commands.txt if it doesn't exist create empty file
+* Check to see if mailx package is installed and if not then offer to install?
 * Sanitise the following pattern: -p 'my_pass_here'
 * Look for additional password use patterns in real life .bash_history files to build additional sanitisation rules
 
