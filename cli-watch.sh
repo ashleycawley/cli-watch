@@ -48,7 +48,13 @@ do
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v -E "^/home/(swb|ansible)" | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
         ROOTDIFFERENCES=`diff -u0 /root/.bash_history $WORKINGDIR/root.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
-        for COMMAND in `echo "$IMMEDIATECOMMANDS"`
+	# Backing up the delimiter used by arrays to differentiate between different data in the array
+	SAVEIFS=$IFS
+	
+	# Change the delimiter used by arrays from a space to a new line, this allows a list of users (on new lines) to be stored in to an array
+	IFS=$'\n'
+
+        for COMMAND in $(cat /root/cli-watch/commands.txt)
         do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
@@ -90,6 +96,9 @@ do
             fi
 
         done
+
+	# Resets $IFS this changes the delimiter that arrays use from new lines (\n) back to just spaces (which is what it normally is)
+	IFS=$SAVEIFS
 
         # Cleans out working copy
         rm -f $WORKINGDIR/$USER.bash_history_working
