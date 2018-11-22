@@ -84,6 +84,9 @@ do
             then
                 # Email / Alerting routine, this can be easily switched between logging to a file or dispatch a report via email
                 cat $WORKINGDIR/$USER.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+		
+		# Logs detections to file
+		cat $WORKINGDIR/$USER.hits >> $LOG
 
                 # Cleaning temporary report of hits
                 rm -f $WORKINGDIR/$USER.hits
@@ -94,6 +97,9 @@ do
             then
                 # Email / Alerting routine, this can be easily switched between logging to a file or dispatch a report via email
                 cat $WORKINGDIR/root.hits | mail -s "CLI-WATCH Report" $EMAILADDRESS
+
+		# Logs detections to file
+                cat $WORKINGDIR/root.hits >> $LOG
 
                 # Cleaning temporary report of hits
                 rm -f $WORKINGDIR/root.hits
