@@ -65,7 +65,7 @@ do
 	IFS=$'\n'
 
 	# For Loop which processes a user-supplied list of commands of interest which are to be monitored by cli-watch
-        for COMMAND in $(cat /root/cli-watch/commands.txt)
+        for COMMAND in $(cat $COMMANDS)
         do
             # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits and root.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
