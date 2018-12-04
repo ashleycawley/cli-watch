@@ -8,6 +8,7 @@ source `dirname $0`/config
 USERS=(`awk -F'[/:]' '{if ($3 >= 1000 && $3 != 65534) print $1}' /etc/passwd`)
 
 # Functions
+# Locks down permissions
 function PERMS {
     chmod 600 $1
 }
@@ -28,7 +29,8 @@ mkdir -p /var/log/cli-watch/
 touch $LOG
 chmod 600 $LOG
 
-# Applies bash history customisations (increases history number, parallel writing from multiple shells and instant updating)
+# Applies bash history customisations to the system (increases history number, parallel writing from multiple shells and instant updating)
+# This only executes once on a system (on first run)
 if [ ! -f "/etc/profile.d/cli-watch-env.sh" ]
 then
         echo 'HISTFILESIZE=100000
@@ -36,6 +38,7 @@ then
         export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"' > /etc/profile.d/cli-watch-env.sh
 fi
 
+# For Loop which uses an array of users derived from the /etc/passwd file
 for USER in ${USERS[*]}
 do
 
@@ -51,17 +54,20 @@ do
     then
         # Tests for differences between users bash history and our working copy, it saves new/differences into variable $DIFFERENCES
         DIFFERENCES=`diff -u0 /home/$USER/.bash_history $WORKINGDIR/$USER.bash_history_working | grep -v -E "^/home/(swb|ansible)" | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
-        ROOTDIFFERENCES=`diff -u0 /root/.bash_history $WORKINGDIR/root.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
+        
+	# Same as above but for the root user
+	ROOTDIFFERENCES=`diff -u0 /root/.bash_history $WORKINGDIR/root.bash_history_working | grep -v "\---" | grep -v "@" | cut -c 2- | grep -v "+"`
 
-	# Backing up the delimiter used by arrays to differentiate between different data in the array
+	# Backing up the delimiter used by arrays to differentiate between different data in the array (prior to changing it)
 	SAVEIFS=$IFS
 	
-	# Change the delimiter used by arrays from a space to a new line, this allows a list of users (on new lines) to be stored in to an array
+	# Changing the delimiter used by arrays from a space to a new line, this allows a list of users (on new lines) to be stored in to an array
 	IFS=$'\n'
 
+	# For Loop which processes a user-supplied list of commands of interest which are to be monitored by cli-watch
         for COMMAND in $(cat /root/cli-watch/commands.txt)
         do
-            # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits
+            # Tests to see if any of the recent commands include commands of interest and stores it in a file called USERNAME.hits and root.hits
             echo "$DIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/$USER.hits && DIFFHIT="1"
             echo "$ROOTDIFFERENCES" | grep -i "$COMMAND" | SANITISE >> $WORKINGDIR/root.hits && ROOTDIFFHIT="1"
 
