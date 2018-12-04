@@ -1,5 +1,5 @@
-# These are some suggested edits that I intend to make to the server
-# environment on which I intend to use cli-watch on.
+# Some of these improvements are implemented for you on the first-run of cli-watch
+# See the README.md for more information on those bash history improvements
 
 vim ~/.bashrc
 
