@@ -2,7 +2,7 @@
 
 A utility that proactively monitors the bash history of all users on the system, it watches for commands of interest (commands specified by you). If one of those commands are used then an email notifcation is dispatched with a log of what command was executed, by who and when.
 
-Enter commands that you would like to cli-watch to monitor within the following file:
+Enter commands that you would like to monitor within the following file:
 ```commands.txt```
 
 If you entered the command ```mysqldump``` into that file and cli-watch detected someone using that program then the email report you recieve would contain the full command, an example the email report may look something like this:
