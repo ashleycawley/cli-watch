@@ -39,10 +39,10 @@ then
 fi
 
 # Checking to see if there are no users other than root
-if [ -z "$USERS" ]
-then
-    USERS=(nouser)
-fi
+#if [ -z "$USERS" ]
+#then
+#    USERS=(nouser)
+#fi
 
 # For Loop which uses an array of users derived from the /etc/passwd file
 for USER in ${USERS[*]}
