@@ -38,6 +38,12 @@ then
         export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"' > /etc/profile.d/cli-watch-env.sh
 fi
 
+# Checking to see if there are no users other than root
+if [ -z "$USERS" ]
+then
+    USERS=(nouser)
+fi
+
 # For Loop which uses an array of users derived from the /etc/passwd file
 for USER in ${USERS[*]}
 do
