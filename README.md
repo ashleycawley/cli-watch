@@ -63,6 +63,7 @@ In short those do the following things:
 ---
 
 ## Dev Notes
+* Have a theory that if no standard users exist in /etc/passwd (+1000 UID) then it may exit prematurely and not monitor root user
 * Mute errors from grep by redirecting standard errors to dev null to avoid emails being dispatched like:
 Usage: grep [OPTION]... PATTERN [FILE]...
 Try 'grep --help' for more information.
