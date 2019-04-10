@@ -42,11 +42,14 @@ And enter in the following line at the end of the file and save:
 ### You are all setup and the system is running!
 
 #### Testing cli-watch
-If you are relying on this for security notifications then I would advise testing your systems ability to reliably dispatch an email to you. You could do this by adding in a benine command into the '''commands.txt''' file, something like '''whoami'''. Then you can intentionally use that command on the system and watch out for an email notification at the email address you specified in the config file.
+If you are relying on this for security notifications then I would advise testing your systems ability to reliably dispatch an email to you. You could do this by adding in a benine command into the ```commands.txt``` file, something like ```whoami```. Then you can intentionally use that command on the system and watch out for an email notification at the email address you specified in the config file.
 
 If you are not receiving email then you could try checking you have the required software to send email, on a lot of Linux systems the following may help:
+
 ```yum install mailx```
+
 ```sudo apt-get install mailx```
+
 Or seek guidence on the relevant mail sending program for your OS distrubution.
 
 ---
