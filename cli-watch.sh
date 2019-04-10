@@ -67,7 +67,7 @@ do
 	# Backing up the delimiter used by arrays to differentiate between different data in the array (prior to changing it)
 	SAVEIFS=$IFS
 	
-	# Changing the delimiter used by arrays from a space to a new line, this allows a list of users (on new lines) to be stored in to an array
+	# Changing the delimiter used by arrays from a space to a new line, this allows my for loops to iterate through a vertical list of commands or users
 	IFS=$'\n'
 
 	# For Loop which processes a user-supplied list of commands of interest which are to be monitored by cli-watch
